@@ -1,0 +1,17 @@
+.background{
+    background-color: #E5E5E5;
+    height: 500px;
+    padding: 2%;
+    margin: 3%;
+    .titleContainer{
+        display: flex;
+        .firstW{
+            color: #95999B;
+        }
+        .secondW{
+            color: #636363;
+            font-weight: bold;
+        }
+
+    }
+}
