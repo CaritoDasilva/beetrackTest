@@ -17,6 +17,7 @@ export default class Dashboard extends Component {
             page: 1
         }
         this.createContact = this.createContact.bind(this);
+        this.deleteContact = this.deleteContact.bind(this);
     }
 
     
@@ -26,7 +27,6 @@ export default class Dashboard extends Component {
     }
 
     async createContact(data) {
-        console.log('me activaron', data)
         let petitionsProperties = { method: 'POST',
              mode: 'cors',
              body: JSON.stringify(data),
@@ -36,7 +36,7 @@ export default class Dashboard extends Component {
              cache: 'default' };
         let deleteResponse = await fetch('http://localhost:3030/api/users', petitionsProperties);
         let deleteRespondeJson = await deleteResponse.json();
-        console.log(deleteRespondeJson);
+        this.getContactsData()
         return deleteRespondeJson;
     }
 
@@ -44,7 +44,16 @@ export default class Dashboard extends Component {
         const response = await fetch('http://localhost:3030/api/users');
         const responseJson = await response.json()
         this.setState(this.state.contacts = responseJson)
-        console.log('estado', this.state.contacts)
+    }
+
+    async deleteContact(id) {
+        let petitionsProperties = { method: 'DELETE',
+                            mode: 'cors',
+                            cache: 'default' };
+            let deleteResponse = await fetch(`http://localhost:3030/api/users/${id}`, petitionsProperties);
+            let deleteRespondeJson = await deleteResponse.json();
+            await this.getContactsData();            
+            return deleteRespondeJson;
     }
 
     doTheSearch() {
@@ -65,7 +74,7 @@ export default class Dashboard extends Component {
 
                     <div>
                         { 
-                            <Card contacts={this.state.contacts} />                         
+                            <Card contacts={this.state.contacts} deleteContact={this.deleteContact} />                         
                         }                    
                     </div>        
                 </div>

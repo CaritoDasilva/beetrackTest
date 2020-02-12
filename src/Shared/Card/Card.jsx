@@ -17,14 +17,8 @@ export default class Card extends Component {
 
     }
 
-    async deleteContact(id) {
-        let petitionsProperties = { method: 'DELETE',
-                        mode: 'cors',
-                        cache: 'default' };
-        let deleteResponse = await fetch(`http://localhost:3030/api/users/${id}`, petitionsProperties);
-        let deleteRespondeJson = await deleteResponse.json();
-        console.log(deleteRespondeJson);
-        return deleteRespondeJson;
+    deleteContact(id) {
+        this.props.deleteContact(id)
     }
 
     async goForward() {
@@ -35,7 +29,6 @@ export default class Card extends Component {
                         cache: 'default' };
         let deleteResponse = await fetch(`/api/users?_page=${this.state.page}&_limit=10`, petitionsProperties);
         let deleteRespondeJson = await deleteResponse.json();
-        console.log(deleteRespondeJson);
         return deleteRespondeJson;
     }
 
@@ -43,8 +36,6 @@ export default class Card extends Component {
         const {contacts} = this.props;
         return (
             <div>
-            {console.log(this.props)}
-
             <Table striped bordered hover size="md">
                 <thead>
                     <tr>

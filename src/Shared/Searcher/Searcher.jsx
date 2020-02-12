@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import './Searcher.scss'
 export default class Searcher extends Component {
     getProps() {
-        console.log(this.props.getProps())
     }
     render() {
 

@@ -10,16 +10,13 @@ const FormContact = (props) => {
     const handleShow = () => setShow(true);
     const handleChange = event => {
         props.formContact[event.target.id] = event.target.value;
-        console.log('propr', event.target.id)
     }
     const createContact = async event => {
         event.preventDefault();
         const form = event.currentTarget;
-        console.log(event.target.value)
         if (form.checkValidity() === false) {
           event.stopPropagation();
         } else {
-            console.log('cool', props)
             let infoForm = 'vengo desde el form'
             props.createContact(props.formContact);
         }
