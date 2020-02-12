@@ -5,10 +5,11 @@ La siguiente prueba busca evaluar los conocimientos en javascript, css y html. P
 Se adjunta un proyecto de nodejs, con una pequeña base de datos y una api ya desarrollada. Para ejecutar el proyecto, una vez descargado hay que correr las siguientes líneas por línea de comandos en el root del proyecto:
 ```
 npm install
-node server.js
+node server.js (para correr la API)
+npm start (para correr el front)
 ```
 Los requisitos son únicamente tener instalado una versión de `node >= 4` y `npm`.
-Si todo funcionó correctamente, va a correr el servidor, y vas a poder acceder a través de cualquier navegador en la dirección: [localhost:3000](http://localhost:3000). Se debería visualizar el html ubicado en `public/index.html`.
+Si todo funcionó correctamente, va a correr el servidor, y vas a poder acceder a través de cualquier navegador en la dirección: [localhost:3030](http://localhost:3030). Se debería visualizar el html ubicado en `public/index.html`.
 ### Desarrollo
 El objectivo del test es desarrollar 2 vistas utilizando la api incluida en el proyecto.
 
