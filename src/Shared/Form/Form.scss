@@ -1,0 +1,14 @@
+
+.modalContainer{
+    color: #636363;
+    .modal-footer{
+        display: flex;
+        justify-content: center;
+        .saveButton{
+            background-color: #F9B43D;
+            width: 50%;
+            border: none;
+        }
+
+    }
+}

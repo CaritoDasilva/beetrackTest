@@ -6,67 +6,34 @@ import Button from 'react-bootstrap/Button'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import './Card.scss'
 
-// const Card = ({contacts}) => {
-
-//     deleteContact(id) {
-//         console.log('contacto', id)
-//     }
-//     return(
-//         <div>
-//             {console.log(contacts)}
-
-//             <Table striped bordered hover size="md">
-//                 <thead>
-//                     <tr>
-//                         <th md={4}>Nombre</th>
-//                         <th>Descripción</th>
-//                     </tr>
-//                 </thead>
-//                 <tbody>
-//                     {contacts.map(contact => 
-//                         <tr>
-//                             <OverlayTrigger
-//                             key={'bottom'}
-//                             placement={'bottom'}
-//                             overlay={
-//                               <Tooltip id={`tooltip-'bottom'`}>
-//                                 Eliminar contacto.
-//                               </Tooltip>
-//                             }
-//                             >
-//                             <td className="containerPhotoName" key={contact.id}>
-//                             <img className="contactPhoto" src={contact.photo} alt=""/>
-//                             {contact.name}                            
-//                             </td>
-//                             </OverlayTrigger>{' '}
-//                             <td className="contactDescription">
-//                             {contact.description}
-//                             </td>                        
-//                         </tr>
-//                     )}                    
-//                 </tbody>
-//             </Table>  
-//             <div className="nextPage"><h6>Siguiente página</h6><span><i class="fas fa-arrow-circle-right"></i></span>
-//             </div>              
-//         </div>
-//     )
-// }
-
-// export default Card;
-
-
 export default class Card extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            page: 1
+        };
+        this.goForward = this.goForward.bind(this);
         this.deleteContact = this.deleteContact.bind(this);
 
     }
 
     async deleteContact(id) {
-        let myInit = { method: 'DELETE',
+        let petitionsProperties = { method: 'DELETE',
                         mode: 'cors',
                         cache: 'default' };
-        let deleteResponse = await fetch(`http://localhost:3000/api/users/${id}`, myInit);
+        let deleteResponse = await fetch(`http://localhost:3030/api/users/${id}`, petitionsProperties);
+        let deleteRespondeJson = await deleteResponse.json();
+        console.log(deleteRespondeJson);
+        return deleteRespondeJson;
+    }
+
+    async goForward() {
+        this.setState({page: this.state.page ++});
+        console.log(this.state)
+        let petitionsProperties = { method: 'GET',
+                        mode: 'cors',
+                        cache: 'default' };
+        let deleteResponse = await fetch(`/api/users?_page=${this.state.page}&_limit=10`, petitionsProperties);
         let deleteRespondeJson = await deleteResponse.json();
         console.log(deleteRespondeJson);
         return deleteRespondeJson;
@@ -87,7 +54,7 @@ export default class Card extends Component {
                 </thead>
                 <tbody>
                     {contacts.map(contact => 
-                        <tr>
+                        <tr key={contact.id}>
                             <OverlayTrigger
                             key={'bottom'}
                             placement={'bottom'}
@@ -97,7 +64,7 @@ export default class Card extends Component {
                               </Tooltip>
                             }
                             >
-                            <td className="containerPhotoName" key={contact.id} onClick={() => this.deleteContact(contact.id)}>
+                            <td className="containerPhotoName" onClick={() => this.deleteContact(contact.id)}>
                             <img className="contactPhoto" src={contact.photo} alt=""/>
                             {contact.name}                            
                             </td>
@@ -109,7 +76,7 @@ export default class Card extends Component {
                     )}                    
                 </tbody>
             </Table>  
-            <div className="nextPage"><h6>Siguiente página</h6><span><i class="fas fa-arrow-circle-right"></i></span>
+            <div className="nextPage" onClick={this.goForward}><h6>Siguiente página</h6><span><i className="fas fa-arrow-circle-right"></i></span>
             </div>              
         </div>
         )

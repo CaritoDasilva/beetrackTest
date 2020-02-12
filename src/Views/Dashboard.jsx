@@ -1,23 +1,47 @@
 import React, { Component } from 'react'
 import './Dashboard.scss';
 import Searcher from '../Shared/Searcher/Searcher.jsx';
+import FormContact from '../Shared/Form/Form.jsx'
 import Card from '../Shared/Card/Card.jsx'
-import Button from 'react-bootstrap/Button'
+
 export default class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            contacts: []
+            contacts: [],
+            formContact: {
+                photo: '',
+                name: '',
+                description: ''
+            },
+            page: 1
         }
-        // this.getContactsData = this.getContactsData.bind(this);
+        this.createContact = this.createContact.bind(this);
     }
+
+    
 
     componentDidMount() {
         this.getContactsData();
     }
 
+    async createContact(data) {
+        console.log('me activaron', data)
+        let petitionsProperties = { method: 'POST',
+             mode: 'cors',
+             body: JSON.stringify(data),
+             headers:{
+                'Content-Type': 'application/json'
+              },
+             cache: 'default' };
+        let deleteResponse = await fetch('http://localhost:3030/api/users', petitionsProperties);
+        let deleteRespondeJson = await deleteResponse.json();
+        console.log(deleteRespondeJson);
+        return deleteRespondeJson;
+    }
+
     async getContactsData(){
-        const response = await fetch('http://localhost:3000/api/users');
+        const response = await fetch('http://localhost:3030/api/users');
         const responseJson = await response.json()
         this.setState(this.state.contacts = responseJson)
         console.log('estado', this.state.contacts)
@@ -27,6 +51,7 @@ export default class Dashboard extends Component {
 
     }
     render() {
+
         if (this.state.contacts.length > 0) {
             return (                   
                 <div className='background'>
@@ -35,13 +60,12 @@ export default class Dashboard extends Component {
                     </div>
                     <Searcher doTheSearch={this.doTheSearch()}/>
                     <div className="buttonContainer">
-                    <Button><span><i className="fas fa-plus-circle"></i></span>Nuevo Contacto</Button>
+                        <FormContact formContact={this.state.formContact} createContact={this.createContact}/>                    
                     </div>
 
                     <div>
                         { 
-                            <Card contacts={this.state.contacts} /> 
-                        
+                            <Card contacts={this.state.contacts} />                         
                         }                    
                     </div>        
                 </div>
