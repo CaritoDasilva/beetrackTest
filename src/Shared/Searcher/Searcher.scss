@@ -1,0 +1,16 @@
+.searchContainer{
+    margin: 2% 0;
+    background-color: #fefefe;
+    width: 20%;
+    height: 35px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    .fa-search{
+        color: #F9B43D;
+    }
+    input{
+        border: none;
+    }
+}

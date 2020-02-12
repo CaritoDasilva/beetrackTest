@@ -1,6 +1,5 @@
 .background{
     background-color: #E5E5E5;
-    height: 500px;
     padding: 2%;
     margin: 3%;
     .titleContainer{
@@ -13,5 +12,19 @@
             font-weight: bold;
         }
 
+    }
+    .buttonContainer{
+        position: absolute;
+        left: 80%;
+        bottom: 63%;
+        width: 100%;
+        button{
+            height: 35px;
+            width: 15%;
+            border: none;
+            background-color: #F9B43D;
+            display: flex;
+            justify-content: space-around;
+        }
     }
 }

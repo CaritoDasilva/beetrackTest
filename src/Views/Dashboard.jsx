@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './Dashboard.scss';
 import Searcher from '../Shared/Searcher/Searcher.jsx';
 import Card from '../Shared/Card/Card.jsx'
+import Button from 'react-bootstrap/Button'
 export default class Dashboard extends Component {
     constructor(props) {
         super(props);
@@ -33,6 +34,10 @@ export default class Dashboard extends Component {
                         <h5 className="firstW">Test</h5><h5 className="secondW">Beetrack</h5>
                     </div>
                     <Searcher doTheSearch={this.doTheSearch()}/>
+                    <div className="buttonContainer">
+                    <Button><span><i className="fas fa-plus-circle"></i></span>Nuevo Contacto</Button>
+                    </div>
+
                     <div>
                         { 
                             <Card contacts={this.state.contacts} /> 
